@@ -1,12 +1,13 @@
 :root {
-    --primary-color: #ff4757;
-    --primary-hover: #ff6b81;
-    --bg-color: #f8f9fa;
-    --card-bg: #ffffff;
-    --text-main: #2f3542;
-    --text-muted: #747d8c;
-    --border-radius: 20px;
-    --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    --primary-color: #ff3366;
+    --primary-hover: #ff1a53;
+    --bg-color: #0d0d12;
+    --card-bg: rgba(25, 25, 30, 0.65);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --text-main: #ffffff;
+    --text-muted: #a0a0b0;
+    --border-radius: 24px;
+    --shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -17,96 +18,150 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Outfit', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
     line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Efecto de luces difuminadas de fondo */
+.background-glow {
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle, rgba(255, 51, 102, 0.12) 0%, rgba(13, 13, 18, 0) 70%);
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 /* Encabezado */
 .header {
-    background-color: var(--card-bg);
-    padding: 30px 20px 20px;
+    padding: 45px 20px 25px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: relative;
+    z-index: 10;
 }
 
 .header h1 {
-    font-size: 1.6rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #ffffff, #c2c2d6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .header p {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
 
 /* Contenedor principal */
 .container {
-    padding: 24px 20px;
-    max-width: 1000px;
+    padding: 20px;
+    max-width: 1100px;
     margin: 0 auto;
+    padding-bottom: 60px;
 }
 
 /* Cuadrícula del menú */
 .menu-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 32px;
 }
 
-/* Adaptación para pantallas más grandes, aunque es mobile-first */
-@media (min-width: 600px) {
+@media (min-width: 768px) {
     .menu-grid {
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 }
 
-/* Tarjeta de plato */
+/* Tarjeta de plato con Glassmorphism */
 .card {
-    background-color: var(--card-bg);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     display: flex;
     flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px);
+    border-color: rgba(255, 51, 102, 0.25);
 }
 
-/* Visualizador 3D / Imagen poster */
+/* Visualizador 3D */
 .card-image-wrapper {
     width: 100%;
-    height: 260px;
-    background-color: #f1f2f6;
+    height: 320px;
     position: relative;
-    overflow: hidden;
+    background: #15151a; /* Fondo muy oscuro para contraste */
 }
 
 model-viewer {
     width: 100%;
     height: 100%;
-    /* Deshabilitar outline por defecto al enfocar */
     outline: none;
+    --poster-color: transparent;
 }
 
-/* Ocultar el botón AR por defecto de model-viewer para usar nuestro botón principal personalizado */
-model-viewer::part(default-ar-button) {
-    display: none;
+/* Botón AR nativo inyectado en el slot de model-viewer */
+.ar-button-slot {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-/* Contenido de la tarjeta */
+.ar-button-slot:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.ar-button-slot:active {
+    transform: translateX(-50%) scale(0.96);
+}
+
+.ar-button-slot i {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+/* Contenido inferior de la tarjeta */
 .card-content {
-    padding: 24px;
+    padding: 26px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -116,56 +171,30 @@ model-viewer::part(default-ar-button) {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .dish-title {
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: 1.45rem;
+    font-weight: 600;
     margin-right: 15px;
-    line-height: 1.3;
+    line-height: 1.25;
 }
 
 .dish-price {
     font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--primary-color);
+    font-weight: 500;
+    color: #ffffff;
+    background: rgba(255, 51, 102, 0.8);
+    padding: 6px 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(255, 51, 102, 0.3);
 }
 
 .dish-description {
-    font-size: 0.95rem;
+    font-size: 0.98rem;
     color: var(--text-muted);
-    margin-bottom: 24px;
-    flex-grow: 1;
-}
-
-/* Botón principal */
-.ar-btn {
-    background-color: var(--primary-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 14px;
-    padding: 16px 20px;
-    font-size: 1.05rem;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    width: 100%;
-}
-
-.ar-btn:hover {
-    background-color: var(--primary-hover);
-}
-
-.ar-btn:active {
-    transform: scale(0.97);
-}
-
-.ar-btn i {
-    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.55;
+    margin-bottom: 0;
 }
