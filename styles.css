@@ -8,6 +8,7 @@
     --text-muted: #a0a0b0;
     --border-radius: 24px;
     --shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    --diagnostic-color: #00d2d3;
 }
 
 * {
@@ -39,6 +40,24 @@ body {
     border-radius: 50%;
     pointer-events: none;
 }
+
+/* Banner de advertencia inyectado por JS */
+.system-banner {
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 500;
+    color: #fff;
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    font-size: 0.95rem;
+}
+.system-banner.error { background: linear-gradient(90deg, #ff3366, #d63031); }
+.system-banner.warning { background: linear-gradient(90deg, #f39c12, #e67e22); }
 
 /* Encabezado */
 .header {
@@ -73,6 +92,19 @@ body {
     padding-bottom: 60px;
 }
 
+/* Separador visual */
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 30px 0 20px;
+    padding-left: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+.diagnostic-title {
+    border-color: var(--diagnostic-color);
+    margin-top: 50px;
+}
+
 /* Cuadrícula del menú */
 .menu-grid {
     display: grid;
@@ -98,6 +130,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease;
+    position: relative;
 }
 
 .card:hover {
@@ -105,12 +138,33 @@ body {
     border-color: rgba(255, 51, 102, 0.25);
 }
 
+/* Tarjeta de diagnóstico */
+.card.diagnostic-card {
+    border-color: rgba(0, 210, 211, 0.3);
+    background: rgba(20, 30, 35, 0.7);
+}
+.card.diagnostic-card:hover {
+    border-color: var(--diagnostic-color);
+    box-shadow: 0 24px 48px rgba(0, 210, 211, 0.15);
+}
+.diagnostic-card .ar-button-slot {
+    border-color: rgba(0, 210, 211, 0.5);
+}
+.diagnostic-card .ar-button-slot i {
+    color: var(--diagnostic-color);
+}
+.diagnostic-card .dish-price {
+    background: rgba(0, 210, 211, 0.2);
+    color: var(--diagnostic-color);
+    box-shadow: none;
+}
+
 /* Visualizador 3D */
 .card-image-wrapper {
     width: 100%;
     height: 320px;
     position: relative;
-    background: #15151a; /* Fondo muy oscuro para contraste */
+    background: #15151a;
 }
 
 model-viewer {
@@ -118,6 +172,30 @@ model-viewer {
     height: 100%;
     outline: none;
     --poster-color: transparent;
+}
+
+/* Overlay de Error en modelo 3D */
+.model-error-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    z-index: 10;
+}
+.model-error-overlay i {
+    color: var(--primary-color);
 }
 
 /* Botón AR nativo inyectado en el slot de model-viewer */
