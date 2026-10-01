@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Demo Restaurante - Menú AR</title>
+    
+    <!-- Fuente moderna -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Componente de Google Model Viewer para AR -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>Demo Restaurante</h1>
+            <p>Descubre nuestro menú en Realidad Aumentada</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="menu-grid" class="menu-grid">
+            <!-- Las tarjetas de los platos se generarán e insertarán aquí mediante app.js -->
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

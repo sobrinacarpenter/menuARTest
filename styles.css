@@ -1,0 +1,171 @@
+:root {
+    --primary-color: #ff4757;
+    --primary-hover: #ff6b81;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-main: #2f3542;
+    --text-muted: #747d8c;
+    --border-radius: 20px;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* Encabezado */
+.header {
+    background-color: var(--card-bg);
+    padding: 30px 20px 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 5px;
+}
+
+.header p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Contenedor principal */
+.container {
+    padding: 24px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Cuadrícula del menú */
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+}
+
+/* Adaptación para pantallas más grandes, aunque es mobile-first */
+@media (min-width: 600px) {
+    .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}
+
+/* Tarjeta de plato */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Visualizador 3D / Imagen poster */
+.card-image-wrapper {
+    width: 100%;
+    height: 260px;
+    background-color: #f1f2f6;
+    position: relative;
+    overflow: hidden;
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+    /* Deshabilitar outline por defecto al enfocar */
+    outline: none;
+}
+
+/* Ocultar el botón AR por defecto de model-viewer para usar nuestro botón principal personalizado */
+model-viewer::part(default-ar-button) {
+    display: none;
+}
+
+/* Contenido de la tarjeta */
+.card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.dish-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-right: 15px;
+    line-height: 1.3;
+}
+
+.dish-price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.dish-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    flex-grow: 1;
+}
+
+/* Botón principal */
+.ar-btn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    width: 100%;
+}
+
+.ar-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.ar-btn:active {
+    transform: scale(0.97);
+}
+
+.ar-btn i {
+    font-size: 1.3rem;
+}
